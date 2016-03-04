@@ -30,9 +30,15 @@ public class Euler {
 		_14();
 		_16();
 		_17();
+		_18();
 		stop = System.currentTimeMillis();
 		System.out.println((stop - start) + " ms");
 
+	}
+
+	private static void _18() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static void _17() {
