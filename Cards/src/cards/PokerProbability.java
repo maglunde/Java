@@ -15,15 +15,15 @@ public class PokerProbability
 	int N = 3_000_000;
 
 	calculateHighCardProbability(N);
-	calculateOnePairProbability(N);
-	calculateTwoPairProbability(N);
-	calculateThreeOfAKindProbability(N);
-	calculateStraightProbability(N);
-	calculateFlushProbability(N);
-	calculateFullHouseProbability(N);
-	calculateFourOfAKindProbability(N);
-	calculateStraightFlushProbability(N);
-	calculateRoyalFlushProbability(N);
+//	calculateOnePairProbability(N);
+//	calculateTwoPairProbability(N);
+//	calculateThreeOfAKindProbability(N);
+//	calculateStraightProbability(N);
+//	calculateFlushProbability(N);
+//	calculateFullHouseProbability(N);
+//	calculateFourOfAKindProbability(N);
+//	calculateStraightFlushProbability(N);
+//	calculateRoyalFlushProbability(N);
 
     }
 
