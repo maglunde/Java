@@ -15,11 +15,15 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 import static java.util.Arrays.stream;
 
 public class Euler {
@@ -44,7 +48,8 @@ public class Euler {
 	// _17();
 	// _18();
 	_19();
-	_20();
+	// _20();
+
 	// _67();
 	// bigTriangle();
 
@@ -55,19 +60,31 @@ public class Euler {
 	for (int i = 99; i > 0; i--) {
 	    bi = bi.multiply(BigInteger.valueOf(i));
 	}
-	
+
 	String str = bi.toString();
-	
+
 	int sum = 0;
 	for (int i = 0; i < str.length(); i++) {
-	    sum += str.charAt(i)-'0';
+	    sum += str.charAt(i) - '0';
 	}
-	
+
 	System.out.println("Problem 20:\t" + sum);
 
     }
 
     private static void _19() {
+	// How many Sundays fell on the first of the month during the twentieth
+	// century (1 Jan 1901 to 31 Dec 2000)?
+
+	Calendar cal = Calendar.getInstance();
+	int numSundays = 0;
+
+	cal.set(1901, 0, 1);
+	for (; cal.get(Calendar.YEAR) < 2001; cal.add(Calendar.DAY_OF_MONTH, 1)) {
+
+	    numSundays += cal.get(Calendar.DAY_OF_WEEK) == 1 && cal.get(Calendar.DAY_OF_MONTH) == 1 ? 1 : 0;
+	}
+	System.out.println("Problem 19:\t" + numSundays);
 
     }
 
@@ -138,8 +155,7 @@ public class Euler {
 	ArrayList<Integer> list2 = new ArrayList<>();
 	try {
 
-	    url = new URL(
-		    "https://projecteuler.net/project/resources/p067_triangle.txt");
+	    url = new URL("https://projecteuler.net/project/resources/p067_triangle.txt");
 	    Scanner fileScanner = new Scanner(url.openStream());
 
 	    while (fileScanner.hasNext()) {
@@ -159,14 +175,11 @@ public class Euler {
     }
 
     private static void _18() {
-	Integer[] verdier = { 75, 95, 64, 17, 47, 82, 18, 35, 87, 10, 20, 04,
-		82, 47, 65, 19, 01, 23, 75, 03, 34, 88, 02, 77, 73, 07, 63, 67,
-		99, 65, 04, 28, 06, 16, 70, 92, 41, 41, 26, 56, 83, 40, 80, 70,
-		33, 41, 48, 72, 33, 47, 32, 37, 16, 94, 29, 53, 71, 44, 65, 25,
-		43, 91, 52, 97, 51, 14, 70, 11, 33, 28, 77, 73, 17, 78, 39, 68,
-		17, 57, 91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48, 63,
-		66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31, 04, 62, 98,
-		27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 04, 23 };
+	Integer[] verdier = { 75, 95, 64, 17, 47, 82, 18, 35, 87, 10, 20, 04, 82, 47, 65, 19, 01, 23, 75, 03, 34, 88,
+		02, 77, 73, 07, 63, 67, 99, 65, 04, 28, 06, 16, 70, 92, 41, 41, 26, 56, 83, 40, 80, 70, 33, 41, 48, 72,
+		33, 47, 32, 37, 16, 94, 29, 53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14, 70, 11, 33, 28, 77, 73, 17, 78,
+		39, 68, 17, 57, 91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48, 63, 66, 04, 68, 89, 53, 67, 30, 73,
+		16, 69, 87, 40, 31, 04, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 04, 23 };
 
 	System.out.println("Problem 18:\t" + Utility.maxPathSum(verdier));
 
@@ -330,8 +343,7 @@ public class Euler {
 	    }
 	}
 	//
-	System.out
-		.println("Problem 14:\tindex: " + maxIdx + ", length: " + max);
+	System.out.println("Problem 14:\tindex: " + maxIdx + ", length: " + max);
 
     }
 
@@ -673,8 +685,7 @@ public class Euler {
 	    sqSum += i;
 	}
 	sqSum = (long) Math.pow(sqSum, 2);
-	System.out.println("Problem 6:\t"
-		+ (Math.max(sqSum, sumSq) - Math.min(sqSum, sumSq)));
+	System.out.println("Problem 6:\t" + (Math.max(sqSum, sumSq) - Math.min(sqSum, sumSq)));
     }
 
     private static void _5() {
