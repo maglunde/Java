@@ -168,7 +168,7 @@ public class Utility {
 
 	int antallFullTrekant = (int) ((høyde + 1) * ((double) høyde / 2));
 	if (verdier.length != antallFullTrekant) {
-	    //Fyll ufullstendig trekant med 0-verdier
+	    // Fyll ufullstendig trekant med 0-verdier
 	    Integer[] verdierFull = new Integer[antallFullTrekant];
 	    for (int i = 0; i < verdier.length; i++) {
 		verdierFull[i] = verdier[i];
@@ -178,7 +178,7 @@ public class Utility {
 	    }
 	    verdier = verdierFull;
 	}
-	//System.out.println(visTrekant(verdier));
+	// System.out.println(visTrekant(verdier));
 
 	// Start på nest nederste linje og sett verdi += den største av de to
 	// verdiene under, for hver linje til toppen
@@ -206,42 +206,71 @@ public class Utility {
 
     public static void skrivTrekantTilFil(Integer[] verdier, String filnavn) throws FileNotFoundException {
 	StringBuilder strBuilder = new StringBuilder();
-	for(int i=0; i<verdier.length;i++) {
+	for (int i = 0; i < verdier.length; i++) {
 	    strBuilder.append(verdier[i]).append(" ");
 	}
 	PrintWriter out = new PrintWriter(filnavn);
-   	out.write(strBuilder.toString());
-   	out.close();
+	out.write(strBuilder.toString());
+	out.close();
     }
+
     private static String visTrekant(Integer[] verdier) throws FileNotFoundException {
-   	StringBuilder strBuilder = new StringBuilder();
-   	int antall = verdier.length;
-   	int høyde = 1, teller = 0;
-   	for (int i = 1; i <= antall; i++) {
-   	    if (++teller == høyde) {
-   		teller = 0;
-   		høyde++;
-   	    }
-   	}
-   	int nivå = 1, verdi;
-   	teller = 0;
-   	for (int i = 0; i < antall; i++) {
-   	    if (teller == 0)
-   		for (int j = nivå; j < høyde; j++)
-   		    strBuilder .append( "  ");
-   	    verdi = verdier[i];
-   	    strBuilder.append(((Integer) verdi).toString().length() > 1 ? "" : "0");
-   	    strBuilder.append(verdi).append( "  ");
+	StringBuilder strBuilder = new StringBuilder();
+	int antall = verdier.length;
+	int høyde = 1, teller = 0;
+	for (int i = 1; i <= antall; i++) {
+	    if (++teller == høyde) {
+		teller = 0;
+		høyde++;
+	    }
+	}
+	int nivå = 1, verdi;
+	teller = 0;
+	for (int i = 0; i < antall; i++) {
+	    if (teller == 0)
+		for (int j = nivå; j < høyde; j++)
+		    strBuilder.append("  ");
+	    verdi = verdier[i];
+	    strBuilder.append(((Integer) verdi).toString().length() > 1 ? "" : "0");
+	    strBuilder.append(verdi).append("  ");
 
-   	    if (++teller == nivå) {
-   		teller = 0;
-   		nivå++;
-   		strBuilder .append("\n");
-   	    }
-   	}
-   	
-   	
+	    if (++teller == nivå) {
+		teller = 0;
+		nivå++;
+		strBuilder.append("\n");
+	    }
+	}
 
-   	return strBuilder.toString();
-       }
+	return strBuilder.toString();
+    }
+
+    public static int getSumAmicable(int limit) {
+	int sumA,sumB,total=0;
+	BitSet bitset = new BitSet(limit);
+	bitset.set(0, limit-1, false);
+	
+	for (int n = 0; n < limit; n++) {
+	    if(bitset.get(n))
+		continue;
+	    sumA=1;sumB=1;
+	    for (int i = 2; i < Math.sqrt(n); i++) {
+		if (n % i == 0) {
+		    sumA += i + n / i;
+		}
+	    }
+	    for (int i = 2; i < Math.sqrt(sumA); i++) {
+		if (sumA % i == 0) {
+		    sumB += i + sumA / i;
+		}
+	    }
+	    if(n==sumB && n != sumA ) {
+		total += sumA+sumB;
+		bitset.set(sumA,true);
+		bitset.set(sumB,true);
+		System.out.println(sumA+" "+sumB);
+	    }
+	}
+
+	return total;
+    }
 }

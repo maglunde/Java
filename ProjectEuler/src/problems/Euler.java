@@ -47,12 +47,21 @@ public class Euler {
 	// _16();
 	// _17();
 	// _18();
-	_19();
+	// _19();
 	// _20();
+	_21();
 
 	// _67();
 	// bigTriangle();
 
+    }
+
+    private static void _21() {
+	// Evaluate the sum of all the amicable numbers under 10000.
+	int N=10000;
+	int sum = Utility.getSumAmicable(N);
+	
+	System.out.println("Problem 21: "+sum);
     }
 
     private static void _20() {
