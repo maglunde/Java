@@ -11,15 +11,18 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import static java.util.Arrays.stream;
 
 public class Euler {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 	int n = 2_000_000;
 	long start, stop;
 
@@ -39,15 +42,51 @@ public class Euler {
 	// _16();
 	// _17();
 	// _18();
-	 _19();
-//	_67();
+	// _19();
+	// _67();
+	// bigTriangle();
 
     }
 
-    private static void _19() {
-	
+    public static void bigTriangle() throws IOException {
 
+	// Random r = new Random();
+	// ArrayList<Integer> list = new ArrayList<>();
+	// for (int i = 0; i < 5_000_000; i++) {
+	// list.add(r.nextInt(100));
+	// }
+	// Integer[] verdier = list.toArray(new Integer[0]);
+	// Utility.skrivTrekantTilFil(verdier, "bigtriangle.txt");
 
+	System.out.print(".");
+	File file = new File("bigtriangle.txt");
+	System.out.print(".");
+	BufferedReader br;
+	String line;
+	ArrayList<Integer> list2 = new ArrayList<>();
+	try {
+	    br = new BufferedReader(new FileReader(file));
+	    System.out.print(".");
+	    while ((line = br.readLine()) != null) {
+		System.out.print(".");
+		String[] arr = line.split("\\s+");
+		for (int i = 0; i < arr.length; i++) {
+		    list2.add(Integer.parseInt(arr[i]));
+		    if (i % 1_000_000 == 0)
+			System.out.print(".");
+
+		}
+	    }
+	} catch (FileNotFoundException e) {
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+
+	long start = System.currentTimeMillis();
+	System.out.println("\nBigTriangle:\t" + Utility.maxPathSum(list2));
+	long stop = System.currentTimeMillis();
+	System.out.println(stop - start + "ms");
     }
 
     private static void _67() {
@@ -59,7 +98,7 @@ public class Euler {
 	try {
 	    br = new BufferedReader(new FileReader(file));
 	    while ((line = br.readLine()) != null) {
-		String[] arr = line.split("\\s");
+		String[] arr = line.split("\\s+");
 		for (int i = 0; i < arr.length; i++) {
 		    list.add(Integer.parseInt(arr[i]));
 		}

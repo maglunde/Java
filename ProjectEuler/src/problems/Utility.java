@@ -4,7 +4,12 @@
 
 package problems;
 
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.BitSet;
+import java.util.List;
 
 /**
  * Created by per on 04.02.2016.
@@ -158,23 +163,35 @@ public class Utility {
     }
 
     public static long maxPathSum(Integer[] verdier) {
-	int[] høydeBredde = trekantHøydeBredde(verdier);
-	int høyde = høydeBredde[0],  nedersteRad = høydeBredde[1];
-	
 
-	
-	
+	int høyde = trekantHøyde(verdier);
+
+	int antallFullTrekant = (int) ((høyde + 1) * ((double) høyde / 2));
+	if (verdier.length != antallFullTrekant) {
+	    //Fyll ufullstendig trekant med 0-verdier
+	    Integer[] verdierFull = new Integer[antallFullTrekant];
+	    for (int i = 0; i < verdier.length; i++) {
+		verdierFull[i] = verdier[i];
+	    }
+	    for (int i = verdier.length; i < verdierFull.length; i++) {
+		verdierFull[i] = 0;
+	    }
+	    verdier = verdierFull;
+	}
+	//System.out.println(visTrekant(verdier));
+
 	// Start på nest nederste linje og sett verdi += den største av de to
 	// verdiene under, for hver linje til toppen
-	// TODO: Fix for ufullstendig trekant (ikke fylt opp nederste rad)
 	for (int i = verdier.length - høyde; høyde > 0; i -= --høyde)
 	    if (i + høyde < verdier.length)
-		for (int j = i; j < i + høyde; j++)
+		for (int j = i; j < i + høyde; j++) {
 		    verdier[j] += Math.max(verdier[j + høyde], verdier[j + høyde + 1]);
+		}
+
 	return verdier[0];
     }
 
-    private static int[] trekantHøydeBredde(Integer[] verdier) {
+    private static int trekantHøyde(Integer[] verdier) {
 	int høyde = 1, teller = 0;
 
 	// Finn høyden på trekanten
@@ -184,36 +201,47 @@ public class Utility {
 		teller = 0;
 	    }
 	høyde -= teller == 0 ? 1 : 0;
-	return new int[] { høyde, teller };
+	return høyde;
     }
 
-    public static String visTrekant(Integer[] verdier) {
-	String s = "";
-	int antall = verdier.length;
-	int høyde = 1, teller = 0;
-	for (int i = 1; i <= antall; i++) {
-	    if (++teller == høyde) {
-		teller = 0;
-		høyde++;
-	    }
+    public static void skrivTrekantTilFil(Integer[] verdier, String filnavn) throws FileNotFoundException {
+	StringBuilder strBuilder = new StringBuilder();
+	for(int i=0; i<verdier.length;i++) {
+	    strBuilder.append(verdier[i]).append(" ");
 	}
-	int nivå = 1, verdi;
-	teller = 0;
-	for (int i = 0; i < antall; i++) {
-	    if (teller == 0)
-		for (int j = nivå; j < høyde; j++)
-		    s += "  ";
-	    verdi = verdier[i];
-	    s += ((Integer) verdi).toString().length() > 1 ? "" : "0";
-	    s += verdi + "  ";
-
-	    if (++teller == nivå) {
-		teller = 0;
-		nivå++;
-		s = s + "\n";
-	    }
-	}
-
-	return s;
+	PrintWriter out = new PrintWriter(filnavn);
+   	out.write(strBuilder.toString());
+   	out.close();
     }
+    private static String visTrekant(Integer[] verdier) throws FileNotFoundException {
+   	StringBuilder strBuilder = new StringBuilder();
+   	int antall = verdier.length;
+   	int høyde = 1, teller = 0;
+   	for (int i = 1; i <= antall; i++) {
+   	    if (++teller == høyde) {
+   		teller = 0;
+   		høyde++;
+   	    }
+   	}
+   	int nivå = 1, verdi;
+   	teller = 0;
+   	for (int i = 0; i < antall; i++) {
+   	    if (teller == 0)
+   		for (int j = nivå; j < høyde; j++)
+   		    strBuilder .append( "  ");
+   	    verdi = verdier[i];
+   	    strBuilder.append(((Integer) verdi).toString().length() > 1 ? "" : "0");
+   	    strBuilder.append(verdi).append( "  ");
+
+   	    if (++teller == nivå) {
+   		teller = 0;
+   		nivå++;
+   		strBuilder .append("\n");
+   	    }
+   	}
+   	
+   	
+
+   	return strBuilder.toString();
+       }
 }
