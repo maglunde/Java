@@ -1,4 +1,5 @@
 package problems;
+
 /*
  * Copyright (c) 2016.
  */
@@ -42,22 +43,44 @@ public class Euler {
 	// _16();
 	// _17();
 	// _18();
-	// _19();
+	_19();
+	_20();
 	// _67();
 	// bigTriangle();
 
     }
 
+    private static void _20() {
+	BigInteger bi = new BigInteger("100");
+	for (int i = 99; i > 0; i--) {
+	    bi = bi.multiply(BigInteger.valueOf(i));
+	}
+	
+	String str = bi.toString();
+	
+	int sum = 0;
+	for (int i = 0; i < str.length(); i++) {
+	    sum += str.charAt(i)-'0';
+	}
+	
+	System.out.println("Problem 20:\t" + sum);
+
+    }
+
+    private static void _19() {
+
+    }
+
     public static void bigTriangle() throws IOException {
 
-	// Random r = new Random();
-	// ArrayList<Integer> list = new ArrayList<>();
-	// for (int i = 0; i < 5_000_000; i++) {
-	// list.add(r.nextInt(100));
-	// }
-	// Integer[] verdier = list.toArray(new Integer[0]);
-	// Utility.skrivTrekantTilFil(verdier, "bigtriangle.txt");
-
+	/*
+	 * Uncomment to generate bigtriangle.txt
+	 * 
+	 * Random r = new Random(); ArrayList<Integer> list = new ArrayList<>();
+	 * for (int i = 0; i < 5_000_000; i++) { list.add(r.nextInt(100)); }
+	 * Integer[] verdier = list.toArray(new Integer[0]);
+	 * Utility.skrivTrekantTilFil(verdier, "bigtriangle.txt");
+	 */
 	System.out.print(".");
 	File file = new File("bigtriangle.txt");
 	System.out.print(".");
@@ -115,7 +138,8 @@ public class Euler {
 	ArrayList<Integer> list2 = new ArrayList<>();
 	try {
 
-	    url = new URL("https://projecteuler.net/project/resources/p067_triangle.txt");
+	    url = new URL(
+		    "https://projecteuler.net/project/resources/p067_triangle.txt");
 	    Scanner fileScanner = new Scanner(url.openStream());
 
 	    while (fileScanner.hasNext()) {
@@ -135,11 +159,14 @@ public class Euler {
     }
 
     private static void _18() {
-	Integer[] verdier = { 75, 95, 64, 17, 47, 82, 18, 35, 87, 10, 20, 04, 82, 47, 65, 19, 01, 23, 75, 03, 34, 88,
-		02, 77, 73, 07, 63, 67, 99, 65, 04, 28, 06, 16, 70, 92, 41, 41, 26, 56, 83, 40, 80, 70, 33, 41, 48, 72,
-		33, 47, 32, 37, 16, 94, 29, 53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14, 70, 11, 33, 28, 77, 73, 17, 78,
-		39, 68, 17, 57, 91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48, 63, 66, 04, 68, 89, 53, 67, 30, 73,
-		16, 69, 87, 40, 31, 04, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 04, 23 };
+	Integer[] verdier = { 75, 95, 64, 17, 47, 82, 18, 35, 87, 10, 20, 04,
+		82, 47, 65, 19, 01, 23, 75, 03, 34, 88, 02, 77, 73, 07, 63, 67,
+		99, 65, 04, 28, 06, 16, 70, 92, 41, 41, 26, 56, 83, 40, 80, 70,
+		33, 41, 48, 72, 33, 47, 32, 37, 16, 94, 29, 53, 71, 44, 65, 25,
+		43, 91, 52, 97, 51, 14, 70, 11, 33, 28, 77, 73, 17, 78, 39, 68,
+		17, 57, 91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48, 63,
+		66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31, 04, 62, 98,
+		27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 04, 23 };
 
 	System.out.println("Problem 18:\t" + Utility.maxPathSum(verdier));
 
@@ -303,7 +330,8 @@ public class Euler {
 	    }
 	}
 	//
-	System.out.println("Problem 14:\tindex: " + maxIdx + ", length: " + max);
+	System.out
+		.println("Problem 14:\tindex: " + maxIdx + ", length: " + max);
 
     }
 
@@ -645,7 +673,8 @@ public class Euler {
 	    sqSum += i;
 	}
 	sqSum = (long) Math.pow(sqSum, 2);
-	System.out.println("Problem 6:\t" + (Math.max(sqSum, sumSq) - Math.min(sqSum, sumSq)));
+	System.out.println("Problem 6:\t"
+		+ (Math.max(sqSum, sumSq) - Math.min(sqSum, sumSq)));
     }
 
     private static void _5() {
