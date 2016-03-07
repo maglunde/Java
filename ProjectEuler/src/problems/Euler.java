@@ -49,16 +49,68 @@ public class Euler {
 	// _18();
 	// _19();
 	// _20();
-	_21();
+	// _21();
+	// _22();
+	_23();
 
 	// _67();
 	// bigTriangle();
 
     }
 
+    private static void _23() {
+	// Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
+	int limit = 28123, sum=0;
+	
+	long start = System.currentTimeMillis();
+	ArrayList<Integer> abundantNumbers = Utility.getAbundantNums(limit);
+	System.out.println("get abundants: "+(System.currentTimeMillis()-start)+"ms");
+	
+	start = System.currentTimeMillis();
+	ArrayList<Integer> notSumOfTwoAbundants = Utility.getNotSumOfTwoAbundants(abundantNumbers,limit);
+	System.out.println("get notsums: "+(System.currentTimeMillis()-start)+"ms");
+	
+	for (Integer i : notSumOfTwoAbundants) {
+	    sum += i;
+	}
+	
+	System.out.println("Problem 23:\t"+sum);
+	
+    }
+
+    private static void _22() {
+	URL url;
+	ArrayList<String> names = new ArrayList<>();
+	try {
+	    url = new URL("http://projecteuler.net/project/resources/p022_names.txt");
+	    Scanner fileScanner = new Scanner(url.openStream());
+	    fileScanner.useDelimiter(",");
+	    String str;
+	    
+	    while(fileScanner.hasNext()) {
+		str = fileScanner.next().replaceAll("\"","");
+		names.add(str);
+	    }
+	    fileScanner.close();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+	
+	names.sort(new StringComparator());
+	
+	long nameScores=0;
+	long a = System.currentTimeMillis();
+//	for (int i=0;i<names.size();i++) {
+//	    nameScores+= Utility.nameScore(names.get(i)) * (i+1);
+//	};
+	
+	System.out.println("Problem 22:\t"+nameScores+"\t"+(System.currentTimeMillis()-a)+"ms");
+	
+    }
+
     private static void _21() {
 	// Evaluate the sum of all the amicable numbers under 10000.
-	int N=10000;
+	int N=10_000;
 	int sum = Utility.getSumAmicable(N);
 	
 	System.out.println("Problem 21: "+sum);

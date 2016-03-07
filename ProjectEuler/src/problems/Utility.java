@@ -245,14 +245,15 @@ public class Utility {
     }
 
     public static int getSumAmicable(int limit) {
-	int sumA,sumB,total=0;
+	int sumA, sumB, total = 0;
 	BitSet bitset = new BitSet(limit);
-	bitset.set(0, limit-1, false);
-	
+	bitset.set(0, limit - 1, false);
+
 	for (int n = 0; n < limit; n++) {
-	    if(bitset.get(n))
+	    if (bitset.get(n))
 		continue;
-	    sumA=1;sumB=1;
+	    sumA = 1;
+	    sumB = 1;
 	    for (int i = 2; i < Math.sqrt(n); i++) {
 		if (n % i == 0) {
 		    sumA += i + n / i;
@@ -263,14 +264,96 @@ public class Utility {
 		    sumB += i + sumA / i;
 		}
 	    }
-	    if(n==sumB && n != sumA ) {
-		total += sumA+sumB;
-		bitset.set(sumA,true);
-		bitset.set(sumB,true);
-		System.out.println(sumA+" "+sumB);
+	    if (n == sumB && n != sumA) {
+		total += sumA + sumB;
+		bitset.set(sumA, true);
+		bitset.set(sumB, true);
 	    }
 	}
 
 	return total;
     }
+
+    public static int nameScore(String name) {
+	int nameScore = 0, charIdx;
+
+	for (int i = 0; i < name.length(); i++) {
+	    charIdx = name.charAt(i) - 'A' + 1;
+	    nameScore += charIdx;
+	}
+
+	return nameScore;
+
+    }
+
+    public static ArrayList<Integer> getAbundantNums(int limit) {
+	List<Integer> divisors;
+	ArrayList<Integer> abundants = new ArrayList<>();
+	int[] primes = primeSieve1(limit);
+	int sum;
+
+	for (int i = 2; i < limit; i++) {
+	    divisors = getDivisors(i, primes);
+	    sum = 0;
+	    for (int j = 0; j < divisors.size(); j++)
+		sum += divisors.get(j);
+	    if (sum > i)
+		abundants.add(i);
+	}
+	return abundants;
+    }
+
+    public static ArrayList<Integer> getDivisors(int num, int[] primes) {
+
+	ArrayList<Integer> divisors = new ArrayList<>();
+	boolean numDividesP;
+	int step;
+
+	divisors.add(1);
+	for (int i = 0; i < primes.length; i++) {
+	    int p = primes[i];
+	    if (p > Math.sqrt(num))
+		break;
+	    numDividesP = num % p == 0;
+	    if (numDividesP) {
+		step = p;
+		do {
+		    if (numDividesP) {
+			if (!divisors.contains(p))
+			    divisors.add(p);
+			if (!divisors.contains(num / p))
+			    divisors.add(num / p);
+		    }
+		    p += step;
+		    numDividesP = num % p == 0;
+		} while (p <= num / p);
+	    }
+	}
+	return divisors;
+    }
+
+    public static ArrayList<Integer> getNotSumOfTwoAbundants(ArrayList<Integer> abundantNumbers, int limit) {
+	BitSet bitset = new BitSet(limit + 1);
+	bitset.set(0, limit, true);
+	int tempSum, len = abundantNumbers.size();
+	ArrayList<Integer> notSumOfTwoAbundants = new ArrayList<>();
+	for (int i = 0; i < len; i++) {
+	    tempSum = 0;
+	    for (int j = i; j < len; j++) {
+		tempSum = abundantNumbers.get(i) + abundantNumbers.get(j);
+		if (tempSum <= limit && bitset.get(tempSum)) {
+		    bitset.set(tempSum, false);
+		}
+	    }
+	}
+
+	for (int i = 0; i < bitset.size(); i++) {
+	    if (bitset.get(i))
+		notSumOfTwoAbundants.add(i);
+	}
+
+	return notSumOfTwoAbundants;
+    }
+    
+  
 }
