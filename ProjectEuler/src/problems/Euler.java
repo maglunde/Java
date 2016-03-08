@@ -48,11 +48,32 @@ public class Euler {
 	// _21();
 	// _22();
 	// _23();
-	_24();
+	// _24();
+	_25();
 
 	// _67();
 	// bigTriangle();
 
+    }
+
+    private static void _25() {
+	// What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
+	BigInteger a, b, c;
+	a = new BigInteger("1");
+	b = new BigInteger("1");
+	c = new BigInteger("1");
+
+	int i=2;
+	
+	while(c.toString().length() < 1000) {
+	    c = c.add(a);
+	    a = b;
+	    b = c;
+	    i++;
+	}
+	System.out.println("Problem 25:\t" + i);
+	
+	
     }
 
     private static void _24() {
