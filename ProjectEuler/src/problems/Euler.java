@@ -12,19 +12,15 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Scanner;
 
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
-import static java.util.Arrays.stream;
 
 public class Euler {
     public static void main(String[] args) throws IOException {
@@ -51,31 +47,60 @@ public class Euler {
 	// _20();
 	// _21();
 	// _22();
-	_23();
+	// _23();
+	_24();
 
 	// _67();
 	// bigTriangle();
 
     }
 
+    private static void _24() {
+	// What is the millionth lexicographic permutation of the digits 0, 1,
+	// 2, 3, 4, 5, 6, 7, 8 and 9?
+
+	final String str = "0123456789";
+	StringBuilder sb = new StringBuilder(str);
+	StringBuilder sb2 = new StringBuilder();
+
+	int k = 1000000, r, q, n, nf;
+	for (int i = str.length() - 1; i > 0; i--) {
+	    q = 0;
+	    nf = Utility.factorial(i);
+	    do {
+		q++;
+		r = k - q * nf;
+	    } while (r > nf);
+
+	    char c = sb.toString().charAt(q);
+	    sb.deleteCharAt(q);
+	    sb2.append(c);
+	    k = r;
+	}
+	sb2.append(sb.toString());
+	System.out.println(sb2.toString());
+
+    }
+
     private static void _23() {
-	// Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
-	int limit = 28123, sum=0;
-	
+	// Find the sum of all the positive integers which cannot be written as
+	// the sum of two abundant numbers.
+	int limit = 28123, sum = 0;
+
 	long start = System.currentTimeMillis();
 	ArrayList<Integer> abundantNumbers = Utility.getAbundantNums(limit);
-	System.out.println("get abundants: "+(System.currentTimeMillis()-start)+"ms");
-	
+	System.out.println("get abundants: " + (System.currentTimeMillis() - start) + "ms");
+
 	start = System.currentTimeMillis();
-	ArrayList<Integer> notSumOfTwoAbundants = Utility.getNotSumOfTwoAbundants(abundantNumbers,limit);
-	System.out.println("get notsums: "+(System.currentTimeMillis()-start)+"ms");
-	
+	ArrayList<Integer> notSumOfTwoAbundants = Utility.getNotSumOfTwoAbundants(abundantNumbers, limit);
+	System.out.println("get notsums: " + (System.currentTimeMillis() - start) + "ms");
+
 	for (Integer i : notSumOfTwoAbundants) {
 	    sum += i;
 	}
-	
-	System.out.println("Problem 23:\t"+sum);
-	
+
+	System.out.println("Problem 23:\t" + sum);
+
     }
 
     private static void _22() {
@@ -86,34 +111,34 @@ public class Euler {
 	    Scanner fileScanner = new Scanner(url.openStream());
 	    fileScanner.useDelimiter(",");
 	    String str;
-	    
-	    while(fileScanner.hasNext()) {
-		str = fileScanner.next().replaceAll("\"","");
+
+	    while (fileScanner.hasNext()) {
+		str = fileScanner.next().replaceAll("\"", "");
 		names.add(str);
 	    }
 	    fileScanner.close();
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
-	
+
 	names.sort(new StringComparator());
-	
-	long nameScores=0;
+
+	long nameScores = 0;
 	long a = System.currentTimeMillis();
-//	for (int i=0;i<names.size();i++) {
-//	    nameScores+= Utility.nameScore(names.get(i)) * (i+1);
-//	};
-	
-	System.out.println("Problem 22:\t"+nameScores+"\t"+(System.currentTimeMillis()-a)+"ms");
-	
+	// for (int i=0;i<names.size();i++) {
+	// nameScores+= Utility.nameScore(names.get(i)) * (i+1);
+	// };
+
+	System.out.println("Problem 22:\t" + nameScores + "\t" + (System.currentTimeMillis() - a) + "ms");
+
     }
 
     private static void _21() {
 	// Evaluate the sum of all the amicable numbers under 10000.
-	int N=10_000;
+	int N = 10_000;
 	int sum = Utility.getSumAmicable(N);
-	
-	System.out.println("Problem 21: "+sum);
+
+	System.out.println("Problem 21: " + sum);
     }
 
     private static void _20() {
