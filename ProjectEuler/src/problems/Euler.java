@@ -73,6 +73,8 @@ public class Euler {
 	
 	while(a++<lim) {
 	    while(b++<lim) {
+		if(!(b>0 && bitset.get(b))) 
+		    continue;
 		prod = n*n+a*n+b;
 		while(prod > 0 && bitset.get(prod)) {
 		    n++;
@@ -90,8 +92,6 @@ public class Euler {
 	    b=0;
 	}
 	System.out.println("Problem 27:\t" +maxA*maxB);
-	
-	
     }
     
     
