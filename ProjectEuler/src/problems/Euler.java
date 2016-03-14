@@ -89,7 +89,7 @@ public class Euler {
 	    }
 	    b=0;
 	}
-	System.out.println("a: "+maxA+", b: "+maxB+ ", primes: "+maxPrimes);
+	System.out.println("Problem 27:\t" +maxA*maxB);
 	
 	
     }
