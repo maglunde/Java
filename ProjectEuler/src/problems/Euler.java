@@ -13,14 +13,12 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.BitSet;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 public class Euler {
     public static void main(String[] args) throws IOException {
@@ -50,12 +48,52 @@ public class Euler {
 	// _23();
 	// _24();
 	// _25();
-	_26();
+	// _26();
+	_27();
 
 	// _67();
 	// bigTriangle();
 
     }
+    
+    private static void _27() {
+	// Considering n² + an + b, where |a| < 1000 and |b| < 1000
+	// Find the product of the coefficients, a and b, for the quadratic expression 
+	// that produces the maximum number of primes for consecutive values of n, starting with n = 0.
+	
+	int lim = 1000;
+	
+	int a=lim*-1, b=lim*-1, n =0, prod, count=0, maxPrimes=0, maxA=-1, maxB=-1;
+	int[] primeArray = Utility.primeSieve1(100000);
+	
+	BitSet bitset = new BitSet(primeArray.length+1);
+	bitset.set(0, primeArray.length+1, false);
+	for(int p : primeArray)
+	    bitset.set(p, true);
+	
+	while(a++<lim) {
+	    while(b++<lim) {
+		prod = n*n+a*n+b;
+		while(prod > 0 && bitset.get(prod)) {
+		    n++;
+		    count++;
+		    prod = n*n+a*n+b;
+		}
+		if(count > maxPrimes) {
+		    maxPrimes = count;
+		    maxA = a; 
+		    maxB=b;
+		}
+		n=0;
+		count=0;
+	    }
+	    b=0;
+	}
+	System.out.println("a: "+maxA+", b: "+maxB+ ", primes: "+maxPrimes);
+	
+	
+    }
+    
     
     private static void _26() {
 	// Find the value of d < 1000 for which 1/d contains the longest
