@@ -49,31 +49,51 @@ public class Euler {
 	// _22();
 	// _23();
 	// _24();
-	_25();
+	// _25();
+	_26();
 
 	// _67();
 	// bigTriangle();
 
     }
+    
+    private static void _26() {
+	// Find the value of d < 1000 for which 1/d contains the longest
+	// recurring cycle in its decimal fraction part.
+	int limit = 1000;
+	
+	int max = 0, maxIdx=-1, order;
+	for (int i = 2; i < limit; i++) {
+	    order = Utility.reccurringLength(i);
+	    if(max < order) {
+		max = Math.max(max, order);
+		maxIdx=i;
+	    }
+	}
+	
+	System.out.println("Problem 26:\t" + maxIdx);
+	
+
+    }
 
     private static void _25() {
-	// What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
+	// What is the index of the first term in the Fibonacci sequence to
+	// contain 1000 digits?
 	BigInteger a, b, c;
 	a = new BigInteger("1");
 	b = new BigInteger("1");
 	c = new BigInteger("1");
 
-	int i=2;
-	
-	while(c.toString().length() < 1000) {
+	int i = 2;
+
+	while (c.toString().length() < 1000) {
 	    c = c.add(a);
 	    a = b;
 	    b = c;
 	    i++;
 	}
 	System.out.println("Problem 25:\t" + i);
-	
-	
+
     }
 
     private static void _24() {

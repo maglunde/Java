@@ -6,6 +6,9 @@ package problems;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -359,6 +362,65 @@ public class Utility {
 	if (n == 1)
 	    return 1;
 	return factorial(n - 1) * n;
+    }
+
+    public static int getLongestReccuringDecimalFraction(int limit) {
+	int[] primeArray = primeSieve1(limit);
+	int reccuringLength = 0, maxReccuringLength = 0, indexLongestReccuringFraction = -1;
+	int p;
+	long s = System.currentTimeMillis();
+
+	// for (int p : primeArray) {
+	for (int i = primeArray.length - 1; i >= 0; i--) {
+	    p = primeArray[i];
+	    if (p < maxReccuringLength)
+		break;
+	    reccuringLength = getReccuringLength(p);
+	    if (reccuringLength > maxReccuringLength) {
+		maxReccuringLength = reccuringLength;
+		indexLongestReccuringFraction = p;
+	    }
+	}
+
+	System.out.println("time " + (System.currentTimeMillis() - s) + "ms");
+
+	return indexLongestReccuringFraction;
+    }
+
+    // Slow
+    public static int getReccuringLength(int n) {
+	List<Integer> list = new ArrayList<>();
+	int remainder = 1 % n, divider, count = 0;
+
+	while (!list.contains(remainder)) {
+	    list.add(remainder);
+	    divider = remainder * 10;
+	    remainder = divider % n;
+	}
+	list.clear();
+	while (!list.contains(remainder)) {
+	    list.add(remainder);
+	    divider = remainder * 10;
+	    remainder = divider % n;
+	    count++;
+	}
+
+	return count;
+    }
+
+    // Fast
+    public static int reccurringLength(int num) {
+	if (gcd(10, num) != 1)
+	    return 0;
+
+	int n = 10 % num, x = n, order = 1;
+
+	while (n != 1) {
+	    n = (n * x) % num;
+	    order++;
+	}
+
+	return order;
     }
 
 }
