@@ -44,18 +44,39 @@ public class Euler {
 	// _19();
 	// _20();
 	// _21();
-	 _22();
+	// _22();
 	// _23();
 	// _24();
 	// _25();
 	// _26();
 	// _27();
+	_28();
 
 	// _67();
 	// bigTriangle();
 
     }
     
+    private static void _28() {
+	// What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral?
+	
+	int size = 1001;
+	int n=1, k=0, sum=1, offset=0;
+	ulam: while(n < size){
+	    k+=2;
+	    for(int i=1;i<=4;i++){
+		int a = i*k+1+offset;
+		if(a>size*size)
+		    break ulam;
+		sum += i*k+1+offset; 
+	    }
+	    offset+= 4*k;
+	}
+	
+	System.out.println("Problem 28:\t" + sum);
+	
+    }
+
     private static void _27() {
 	// Considering n² + an + b, where |a| < 1000 and |b| < 1000
 	// Find the product of the coefficients, a and b, for the quadratic expression 

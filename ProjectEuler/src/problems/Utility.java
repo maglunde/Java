@@ -423,4 +423,24 @@ public class Utility {
 	return order;
     }
 
+    public static int ulamSpiralDiagonalSum(int size) {
+	
+	int n=1, k=0, sum=1, offset=0;
+	calc: while(n < size){
+	    k+=2;
+	    for(int i=1;i<=4;i++){
+		int a = i*k+1+offset;
+		if(a>size*size)
+		    break calc;
+		sum += i*k+1+offset; 
+	    }
+	    offset+= 4*k;
+	}
+	
+	return sum;
+	
+	
+	
+    }
+
 }
