@@ -44,12 +44,12 @@ public class Euler {
 	// _19();
 	// _20();
 	// _21();
-	// _22();
+	 _22();
 	// _23();
 	// _24();
 	// _25();
 	// _26();
-	_27();
+	// _27();
 
 	// _67();
 	// bigTriangle();
@@ -204,11 +204,11 @@ public class Euler {
 
 	long nameScores = 0;
 	long a = System.currentTimeMillis();
-	// for (int i=0;i<names.size();i++) {
-	// nameScores+= Utility.nameScore(names.get(i)) * (i+1);
-	// };
+	 for (int i=0;i<names.size();i++) {
+	 nameScores+= Utility.nameScore(names.get(i)) * (i+1);
+	 };
 
-	System.out.println("Problem 22:\t" + nameScores + "\t" + (System.currentTimeMillis() - a) + "ms");
+	System.out.println("Problem 22:\t" + nameScores);
 
     }
 
