@@ -53,15 +53,61 @@ public class Euler {
 	// _25();
 	// _26();
 	// _27();
+	// _27();
 	// _28();
 	// _29();
-	_30();
+	// _30();
+	// _31();
+	_32();
 
 	// _67();
 	// bigTriangle();
 
     }
-    
+    private static void _32() {
+	// TODO Auto-generated method stub
+	
+    }
+    private static void _31() {
+	// 1p, 2p, 5p, 10p, 20p, 50p, £1 (100p) and £2 (200p).
+	// How many different ways can £2 be made using any number of coins?
+	
+	int target=200, ways=0;
+	int[] coins = {1,2,5,10,20,50,100,200};
+	
+	int[] arr = new int[target+1];
+	arr[0]=1;
+	
+	for(int coin : coins) {
+	    for(int i=coin;i<=target;i++) {
+		arr[i]+= arr[i-coin];
+	    }
+	}
+	int i=0;
+	for(int w: arr)
+	    System.out.println(i+++":"+w);
+	
+	System.out.println("Problem 31:\t" + arr[target]);
+	
+//	for(int a=target;a>=0;a-=200 ) {
+//	    for(int b = a; b>=0;b-=100) {
+//		for(int c=b;c>=0;c-=50) {
+//		    for(int d=c;d>=0;d-=20) {
+//			for(int e=d;e>=0;e-=10) {
+//			    for(int f=e;f>=0;f-=5) {
+//				for(int g=f;g>=0;g-=2) {
+//				    ways++;
+//				}
+//			    }
+//			}
+//		    }
+//		}
+//	    }
+//	}
+//	
+//	System.out.println("Problem 31:\t" + ways);
+	
+    }
     private static void _30() {
 	// Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
 	
